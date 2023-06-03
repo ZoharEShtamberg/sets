@@ -110,7 +110,7 @@ int Set<T>::find(T argument) const
 {
 	for (int i = 0; i < currentSize; i++)
 	{
-		if (data[i] == number)
+		if (data[i] == argument)
 		{
 			return i;
 		}
@@ -182,14 +182,14 @@ Set<T> &Set<T>::intersectWith(const Set<T> &baby)
 template <class T>
 Set<T> unionSets(const Set<T> &setA, const Set<T> &setB)
 {
-	Set result = setA;
+	Set<T> result = setA;
 	return result.uniteWith(setB);
 }
 
 template <class T>
 Set<T> intersection(const Set<T> &setA, const Set<T> &setB)
 {
-	Set result = setA;
+	Set<T> result = setA;
 	return result.intersectWith(setB);
 }
 
@@ -249,13 +249,13 @@ bool Set<T>::operator+=(T argument)
 
 
 template <class T>
-Set<T>::Iterator Set<T>::begin() const
+typename Set<T>::Iterator Set<T>::begin() const
 {
 	return Iterator(this, 0);
 }
 
 template <class T>
-Set<T>::Iterator Set<T>::end() const
+typename Set<T>::Iterator Set<T>::end() const
 {
 	return Iterator(this, currentSize);
 }
@@ -267,14 +267,14 @@ Set<T>::Iterator::Iterator(const Set<T> *set, int index) : set(set), index(index
 // Iterator methods
 
 template <class T>
-Set<T>::Iterator &Set<T>::Iterator::operator++()
+typename Set<T>::Iterator &Set<T>::Iterator::operator++()
 {
 	index++;
 	return *this;
 }
 
 template <class T>
-int Set<T>::Iterator::operator*() const
+ int Set<T>::Iterator::operator*() const
 {
 	assert(index >= 0 && index < set->currentSize);
 	return set->data[index];
@@ -295,7 +295,7 @@ bool Set<T>::Iterator::operator!=(const Iterator &other) const
 }
 
 template <class T>
-Set<T>::Iterator Set<T>::Iterator::operator++(int)
+typename Set<T>::Iterator Set<T>::Iterator::operator++(int)
 {
 	Iterator result = *this;
 	++(*this);
