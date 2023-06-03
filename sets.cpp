@@ -100,3 +100,58 @@ std::string Set::toString() const{
     result += "}";
     return result;
 }
+Set& Set::operator=(const Set& source){
+    if(this==&source){
+        return *this;
+    }
+    delete[] data;
+    data = new int[source.maxSize]();
+    currentSize = source.currentSize;
+    maxSize = source.maxSize;
+    for(int i = 0 ; i<currentSize ; i++){
+        data[i] = source.data[i];
+    }
+    return *this;
+}
+Set& Set::operator+=(const Set& source){
+    return uniteWith(source);
+}
+Set& Set::operator^=(const Set& source){
+    return intersectWith(source);
+}
+bool Set::operator+=(int number){
+    return add(number);
+}
+
+Set::Iterator Set::begin() const{
+    return Iterator(this, 0);
+}
+Set::Iterator Set::end() const{
+    return Iterator(this, currentSize);
+}
+//Iterator constructor
+Set::Iterator::Iterator(const Set* set, int index): set(set), index(index){}
+//Iterator methods
+
+Set::Iterator& Set::Iterator::operator++(){
+    index++;
+    return *this;
+}
+
+int Set::Iterator::operator*() const{
+    assert(index>=0 && index<set->currentSize);
+    return set->data[index];
+}
+
+bool Set::Iterator::operator==(const Iterator& other) const{
+    assert(set==other.set);     //make sure iterators are from same set
+    return index==other.index;
+}
+bool Set::Iterator::operator!=(const Iterator& other) const{
+    return !(*this==other);
+}
+Set::Iterator Set::Iterator::operator++(int){
+    Iterator result = *this;
+    ++(*this);
+    return result;
+}
