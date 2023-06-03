@@ -45,7 +45,7 @@ Set<T> intersection(const Set<T>&, const Set<T>&);
 template <class T>
 class Set<T>::Iterator{
    public:
-   int operator*() const;
+   T operator*() const;
    bool operator==(const Iterator&) const;
    bool operator!=(const Iterator&) const;
    Iterator& operator++(); //prefix
@@ -274,7 +274,7 @@ typename Set<T>::Iterator &Set<T>::Iterator::operator++()
 }
 
 template <class T>
- int Set<T>::Iterator::operator*() const
+T Set<T>::Iterator::operator*() const
 {
 	assert(index >= 0 && index < set->currentSize);
 	return set->data[index];
