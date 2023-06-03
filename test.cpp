@@ -16,5 +16,13 @@ cout << set1.toString() << endl;
 cout << set2.toString() << endl;
 cout << unionSet.toString() << endl;
 cout << intersectionSet.toString() << endl;
+cout << "now using iterators" << endl;
+for(Set::Iterator it = set1.begin(); it != set1.end(); ++it) {
+cout << *it << endl;
+}
+cout << "now using range-based for loop" << endl;
+for(int x: set2) {
+	cout << x << endl;
+}
 return 0;
 }
